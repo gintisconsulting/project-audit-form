@@ -210,7 +210,6 @@
         .score-range.advanced { border-left-color: #17a2b8; }
         .score-range.competent { border-left-color: #ffc107; }
         .score-range.developing { border-left-color: #fd7e14; }
-        .score-range.insufficient { border-left-color: #dc3545; }
         
         .score-title {
             font-weight: 600;
@@ -668,20 +667,28 @@
     </div>
     
     <script>
+        function printToPDF() {
+            // Trigger the browser's print dialog
+            window.print();
+        }
+
+        // Add click functionality to score boxes for interactive use
         document.querySelectorAll('.score-box').forEach(box => {
-            box.addEventListener('click', () => {
-                // Remove selected state from other boxes in the same question
-                const question = box.closest('.question');
-                question.querySelectorAll('.score-box').forEach(b => {
-                    b.style.backgroundColor = '';
-                    b.style.color = '#6c757d';
+            box.addEventListener('click', function() {
+                // Remove selected class from siblings
+                const siblings = this.parentElement.querySelectorAll('.score-box');
+                siblings.forEach(sibling => {
+                    sibling.style.backgroundColor = '';
+                    sibling.style.borderColor = '#dee2e6';
+                    sibling.style.color = '#6c757d';
                 });
-
-                // Add selected state to the clicked box
-                box.style.backgroundColor = '#007b7b';
-                box.style.color = 'white';
-
-                // Recalculate the total score
+                
+                // Add selected styling to clicked box
+                this.style.backgroundColor = '#007b7b';
+                this.style.borderColor = '#007b7b';
+                this.style.color = 'white';
+                
+                // Calculate and update total score
                 calculateTotalScore();
             });
         });
@@ -701,11 +708,13 @@
         }
 
         function highlightReadinessLevel(score) {
+            // Remove previous highlights
             document.querySelectorAll('.score-range').forEach(range => {
                 range.style.backgroundColor = 'white';
                 range.style.fontWeight = 'normal';
             });
-
+            
+            // Highlight the appropriate range
             let targetRange;
             if (score >= 78) {
                 targetRange = document.querySelector('.score-range.exemplary');
@@ -736,5 +745,7 @@
             html2pdf().set(options).from(element).save();
         }
     </script>
+</body>
+</html>
 </body>
 </html>

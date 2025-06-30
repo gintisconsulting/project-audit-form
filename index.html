@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Model Self-Audit Form</title>
+    <style>
+        @media print {
+            body { margin: 0; }
+            .no-print { display: none; }
+            .page-break { page-break-before: always; }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.4;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.75in;
+            color: #333;
+            background: white;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 3px solid #2c5aa0;
+            padding-bottom: 1rem;
+        }
+        
+        .header h1 {
+            color: #2c5aa0;
+            font-size: 24px;
+            margin: 0 0 0.5rem 0;
+            font-weight: 600;
+        }
+        
+        .intro {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-left: 4px solid #2c5aa0;
+            margin-bottom: 1.5rem;
+            font-size: 14px;
+        }
+        
+        .legend {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+        }
+        
+        .legend h3 {
+            color: #856404;
+            margin-top: 0;
+            font-size: 16px;
+        }
+        
+        .legend ul {
+            margin: 0.5rem 0 0 0;
+            padding-left: 1.2rem;
+        }
+        
+        .legend li {
+            margin-bottom: 0.3rem;
+            font-size: 13px;
+        }
+        
+        .section {
+            margin-bottom: 1.5rem;
+            break-inside: avoid;
+        }
+        
+        .section-header {
+            background: #2c5aa0;
+            color: white;
+            padding: 0.5rem 0.75rem;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 0.75rem;
+        }
+        
+        .question {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 14px;
+        }
+        
+        .question:last-child {
+            border-bottom: none;
+        }
+        
+        .question-text {
+            flex: 1;
+            padding-right: 1rem;
+        }
+        
+        .question-number {
+            color: #6c757d;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        
+        .score-options {
+            display: flex;
+            gap: 0.3rem;
+            align-items: center;
+            white-space: nowrap;
+        }
+        
+        .score-label {
+            font-size: 12px;
+            color: #6c757d;
+            margin-right: 0.3rem;
+        }
+        
+        .score-box {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #dee2e6;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #6c757d;
+            margin: 0 1px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .score-box:hover {
+            border-color: #2c5aa0;
+            background: #e7f1ff;
+        }
+        
+        .total-section {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border: 2px solid #2c5aa0;
+            text-align: center;
+        }
+        
+        .total-score {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c5aa0;
+            margin-bottom: 1rem;
+        }
+        
+        .score-guide {
+            margin-top: 1.5rem;
+        }
+        
+        .score-guide h3 {
+            color: #2c5aa0;
+            margin-bottom: 1rem;
+            font-size: 16px;
+        }
+        
+        .score-range {
+            margin-bottom: 0.8rem;
+            padding: 0.6rem;
+            border-left: 4px solid #dee2e6;
+            background: white;
+        }
+        
+        .score-range.exemplary { border-left-color: #28a745; }
+        .score-range.advanced { border-left-color: #17a2b8; }
+        .score-range.competent { border-left-color: #ffc107; }
+        .score-range.developing { border-left-color: #fd7e14; }
+        .score-range.insufficient { border-left-color: #dc3545; }
+        
+        .score-title {
+            font-weight: 600;
+            color: #2c5aa0;
+            font-size: 14px;
+        }
+        
+        .score-description {
+            font-size: 13px;
+            margin-top: 0.3rem;
+            color: #495057;
+        }
+        
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2c5aa0;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: background 0.2s;
+        }
+        
+        .print-button:hover {
+            background: #1e3d72;
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button no-print" onclick="printToPDF()">Save as PDF</button>
+    
+    <div class="header">
+        <h1>Project Model Self-Audit Form</h1>
+    </div>
+    
+    <div class="intro">
+        <p><strong>Welcome to the Project Model Self-Audit</strong>, a tool to strengthen your grant proposal. By systematically evaluating mission alignment, needs assessment, SMART objectives, activity planning, evaluation metrics, budget rationale, organizational capacity, and sustainability, you'll assess and transform ideas into a fundable plan.</p>
+        
+        <p><strong>This checklist serves two purposes:</strong></p>
+        <p><strong>Precision:</strong> Pinpoint and close any gaps before a reviewer does.<br>
+        <strong>Efficiency:</strong> Save time by addressing core questions up front, rather than during proposal revisions.</p>
+        
+        <p>Approach each section thoughtfully; the effort you invest now will help yield a clearer narrative, tighter logic model, and ultimately a more persuasive application. Let's build a proposal that stands out!</p>
+    </div>
+    
+    <div class="legend">
+        <h3>Scoring Legend</h3>
+        <ul>
+            <li><strong>1 – Insufficient:</strong> Critical information is missing or unclear.</li>
+            <li><strong>2 – Developing:</strong> Some elements are defined, but gaps remain.</li>
+            <li><strong>3 – Competent:</strong> Core components are in place; needs refinement.</li>
+            <li><strong>4 – Advanced:</strong> Well-developed and mostly cohesive.</li>
+            <li><strong>5 – Exemplary:</strong> Thorough, evidence-backed, and ready for submission.</li>
+        </ul>
+    </div>
+    
+    <div class="section">
+        <div class="section-header">1. Mission & Fit</div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">1.</span>Mission alignment: Project clearly advances our core mission.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">2.</span>Strategic fit: Builds on or complements existing programs.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">3.</span>Urgency/rationale: There's a compelling "why now."
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-header">2. Needs & Context</div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">4.</span>Problem definition: Community need or gap is clearly described.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">5.</span>Evidence base: Data, research, or testimonials back the need.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">6.</span>Target population: Beneficiaries are specified (who, where, how many).
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-header">3. Goals & Objectives</div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">7.</span>Goal clarity: Broad change we seek is crystal-clear.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">8.</span>Objective Specificity: Objectives are sharply focused and unambiguous.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">9.</span>Objective Measurability: Each has clear data-driven metrics.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">10.</span>Objective Achievability: Targets are realistic given time and resources.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">11.</span>Objective Relevance: Objectives directly tie to needs and mission.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">12.</span>Objective Timing: Each has a clear deadline.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-header">4. Activities & Timeline</div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">13.</span>Key activities and actions (workshops, outreach, coaching) are listed.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">14.</span>Sequencing & timeline: Realistic schedule shows when each happens.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">15.</span>Staff & partners: Roles and qualifications for each activity are clear.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="page-break"></div>
+    
+    <div class="section">
+        <div class="section-header">5. Outcomes & Evaluation</div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">16.</span>Outcome types: Short-term (e.g., knowledge gained) vs. long-term (e.g., behavior change) are identified.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">17.</span>Measurable indicators: Each outcome has a data-driven metric (surveys, attendance, follow-up) when possible.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">18.</span>Baseline & targets: We know where we start, and we've set realistic growth targets.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-header">6. Budget & Resources</div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">19.</span>Cost rationale: Every line item ties directly to an activity or deliverable.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">20.</span>Cost per unit: We've calculated cost per participant or per-hour as appropriate.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">21.</span>Leverage/matching: Other funders or in-kind support are already committed.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-header">7. Capacity & Risk</div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">22.</span>Track record: We've done something like this before, with documented results.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">23.</span>Staff capacity: Team size and skills match the project's demands.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">24.</span>Risk & mitigation: Key risks are identified, with clear backup plans.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-header">8. Sustainability & Scale</div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">25.</span>Post-grant plan: There's a credible strategy to sustain work after funding ends.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="question-text">
+                <span class="question-number">26.</span>Scaling potential: This model could be expanded or replicated if it succeeds.
+            </div>
+            <div class="score-options">
+                <span class="score-label">Score</span>
+                <div class="score-box">1</div>
+                <div class="score-box">2</div>
+                <div class="score-box">3</div>
+                <div class="score-box">4</div>
+                <div class="score-box">5</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="total-section">
+        <div class="total-score">
+            TOTAL SCORE: <span id="totalScore">0</span> / 130
+        </div>
+    </div>
+    
+    <div class="score-guide">
+        <h3>Use your Total Score (out of 130) to gauge overall readiness:</h3>
+        
+        <div class="score-range exemplary">
+            <div class="score-title">117–130 (90–100%) – Exemplary Readiness</div>
+            <div class="score-description">Your project model is comprehensive, evidence-backed, and polished. You're fully prepared to draft a competitive proposal.</div>
+        </div>
+        
+        <div class="score-range advanced">
+            <div class="score-title">104–116 (80–89%) – Advanced Foundation</div>
+            <div class="score-description">Most components are well-developed. A few minor refinements will elevate your application to "submission-ready."</div>
+        </div>
+        
+        <div class="score-range competent">
+            <div class="score-title">78–103 (60–79%) – Competent Basis</div>
+            <div class="score-description">Core elements are in place, but gaps in objectives, evaluation, or budget need attention before proposal writing.</div>
+        </div>
+        
+        <div class="score-range developing">
+            <div class="score-title">52–77 (40–59%) – Developing Model</div>
+            <div class="score-description">Several sections require significant strengthening, especially SMART objectives, outcome measures, and resource alignment.</div>
+        </div>
+        
+        <div class="score-range insufficient">
+            <div class="score-title">&lt;52 (&lt;40%) – Insufficient Readiness</div>
+            <div class="score-description">Logic-model components are missing or underdefined. Prioritize clarifying goals, measurable outcomes, and budget rationale before proceeding.</div>
+        </div>
+    </div>
+    
+    <script>
+        function printToPDF() {
+            // Trigger the browser's print dialog
+            window.print();
+        }
+
+        // Add click functionality to score boxes for interactive use
+        document.querySelectorAll('.score-box').forEach(box => {
+            box.addEventListener('click', function() {
+                // Remove selected class from siblings
+                const siblings = this.parentElement.querySelectorAll('.score-box');
+                siblings.forEach(sibling => {
+                    sibling.style.backgroundColor = '';
+                    sibling.style.borderColor = '#dee2e6';
+                    sibling.style.color = '#6c757d';
+                });
+                
+                // Add selected styling to clicked box
+                this.style.backgroundColor = '#2c5aa0';
+                this.style.borderColor = '#2c5aa0';
+                this.style.color = 'white';
+                
+                // Calculate and update total score
+                calculateTotalScore();
+            });
+        });
+
+        function calculateTotalScore() {
+            let total = 0;
+            let questionsAnswered = 0;
+            
+            // Find all question rows
+            document.querySelectorAll('.question').forEach(question => {
+                const selectedBox = question.querySelector('.score-box[style*="background-color: rgb(44, 90, 160)"]');
+                if (selectedBox) {
+                    total += parseInt(selectedBox.textContent);
+                    questionsAnswered++;
+                }
+            });
+            
+            // Update the total score display
+            const totalScoreElement = document.getElementById('totalScore');
+            if (questionsAnswered === 0) {
+                totalScoreElement.textContent = '0';
+            } else if (questionsAnswered < 26) {
+                totalScoreElement.textContent = total + ' (incomplete)';
+            } else {
+                totalScoreElement.textContent = total;
+                
+                // Highlight the appropriate readiness level
+                highlightReadinessLevel(total);
+            }
+        }
+
+        function highlightReadinessLevel(score) {
+            // Remove previous highlights
+            document.querySelectorAll('.score-range').forEach(range => {
+                range.style.backgroundColor = 'white';
+                range.style.fontWeight = 'normal';
+            });
+            
+            // Highlight the appropriate range
+            let targetRange;
+            if (score >= 117) {
+                targetRange = document.querySelector('.score-range.exemplary');
+            } else if (score >= 104) {
+                targetRange = document.querySelector('.score-range.advanced');
+            } else if (score >= 78) {
+                targetRange = document.querySelector('.score-range.competent');
+            } else if (score >= 52) {
+                targetRange = document.querySelector('.score-range.developing');
+            } else {
+                targetRange = document.querySelector('.score-range.insufficient');
+            }
+            
+            if (targetRange) {
+                targetRange.style.backgroundColor = '#f8f9fa';
+                targetRange.style.fontWeight = '600';
+                targetRange.style.border = '2px solid #2c5aa0';
+            }
+        }
+    </script>
+</body>
+</html>

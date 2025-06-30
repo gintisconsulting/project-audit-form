@@ -669,33 +669,35 @@
     
     <script>
         document.querySelectorAll('.score-box').forEach(box => {
-            if (box.textContent === '5') {
-                box.remove(); // Remove the score box with value 5
-            }
+            box.addEventListener('click', () => {
+                // Remove selected state from other boxes in the same question
+                const question = box.closest('.question');
+                question.querySelectorAll('.score-box').forEach(b => {
+                    b.style.backgroundColor = '';
+                    b.style.color = '#6c757d';
+                });
+
+                // Add selected state to the clicked box
+                box.style.backgroundColor = '#007b7b';
+                box.style.color = 'white';
+
+                // Recalculate the total score
+                calculateTotalScore();
+            });
         });
 
         function calculateTotalScore() {
             let total = 0;
-            let questionsAnswered = 0;
 
             document.querySelectorAll('.question').forEach(question => {
                 const selectedBox = question.querySelector('.score-box[style*="background-color: rgb(0, 123, 123)"]');
                 if (selectedBox) {
                     total += parseInt(selectedBox.textContent);
-                    questionsAnswered++;
                 }
             });
 
-            const totalScoreElement = document.getElementById('totalScore');
-            if (questionsAnswered === 0) {
-                totalScoreElement.textContent = '0';
-            } else if (questionsAnswered < 26) {
-                totalScoreElement.textContent = total + ' (incomplete)';
-            } else {
-                totalScoreElement.textContent = total;
-
-                highlightReadinessLevel(total);
-            }
+            document.getElementById('totalScore').textContent = total;
+            highlightReadinessLevel(total);
         }
 
         function highlightReadinessLevel(score) {

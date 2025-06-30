@@ -24,35 +24,40 @@
         .header {
             text-align: center;
             margin-bottom: 2rem;
-            border-bottom: 3px solid #2c5aa0;
+            border-bottom: 3px solid #007b7b; /* Updated color */
             padding-bottom: 1rem;
         }
         
+        .header img {
+            max-width: 150px; /* Adjust size as needed */
+            margin-bottom: 1rem;
+        }
+        
         .header h1 {
-            color: #2c5aa0;
+            color: #007b7b; /* Updated color */
             font-size: 24px;
             margin: 0 0 0.5rem 0;
             font-weight: 600;
         }
         
         .intro {
-            background: #f8f9fa;
+            background: #e6f7f7; /* Updated color */
             padding: 1rem;
-            border-left: 4px solid #2c5aa0;
+            border-left: 4px solid #007b7b; /* Updated color */
             margin-bottom: 1.5rem;
             font-size: 14px;
         }
         
         .legend {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
+            background: #e6f7f7; /* Updated color */
+            border: 1px solid #b3e0e0; /* Updated color */
             padding: 1rem;
             margin-bottom: 1.5rem;
             border-radius: 4px;
         }
         
         .legend h3 {
-            color: #856404;
+            color: #007b7b; /* Updated color */
             margin-top: 0;
             font-size: 16px;
         }
@@ -73,7 +78,7 @@
         }
         
         .section-header {
-            background: #2c5aa0;
+            background: #007b7b; /* Updated color */
             color: white;
             padding: 0.5rem 0.75rem;
             font-weight: 600;
@@ -134,22 +139,22 @@
         }
         
         .score-box:hover {
-            border-color: #2c5aa0;
-            background: #e7f1ff;
+            border-color: #007b7b; /* Updated color */
+            background: #e6f7f7; /* Updated color */
         }
         
         .total-section {
             margin-top: 2rem;
             padding: 1rem;
-            background: #f8f9fa;
-            border: 2px solid #2c5aa0;
+            background: #e6f7f7; /* Updated color */
+            border: 2px solid #007b7b; /* Updated color */
             text-align: center;
         }
         
         .total-score {
             font-size: 18px;
             font-weight: 600;
-            color: #2c5aa0;
+            color: #007b7b; /* Updated color */
             margin-bottom: 1rem;
         }
         
@@ -158,7 +163,7 @@
         }
         
         .score-guide h3 {
-            color: #2c5aa0;
+            color: #007b7b; /* Updated color */
             margin-bottom: 1rem;
             font-size: 16px;
         }
@@ -178,7 +183,7 @@
         
         .score-title {
             font-weight: 600;
-            color: #2c5aa0;
+            color: #007b7b; /* Updated color */
             font-size: 14px;
         }
         
@@ -192,7 +197,7 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: #2c5aa0;
+            background: #007b7b; /* Updated color */
             color: white;
             border: none;
             padding: 0.75rem 1.5rem;
@@ -205,7 +210,7 @@
         }
         
         .print-button:hover {
-            background: #1e3d72;
+            background: #005f5f; /* Updated color */
         }
         
         .page-break {
@@ -217,6 +222,7 @@
     <button class="print-button no-print" onclick="printToPDF()">Save as PDF</button>
     
     <div class="header">
+        <img src="path-to-logo/gintis-logo.png" alt="Gintis Consulting Logo"> <!-- Replace with actual path -->
         <h1>Project Model Self-Audit Form</h1>
     </div>
     
@@ -666,8 +672,8 @@
                 });
                 
                 // Add selected styling to clicked box
-                this.style.backgroundColor = '#2c5aa0';
-                this.style.borderColor = '#2c5aa0';
+                this.style.backgroundColor = '#007b7b';
+                this.style.borderColor = '#007b7b';
                 this.style.color = 'white';
                 
                 // Calculate and update total score
@@ -681,7 +687,7 @@
             
             // Find all question rows
             document.querySelectorAll('.question').forEach(question => {
-                const selectedBox = question.querySelector('.score-box[style*="background-color: rgb(44, 90, 160)"]');
+                const selectedBox = question.querySelector('.score-box[style*="background-color: rgb(0, 123, 123)"]');
                 if (selectedBox) {
                     total += parseInt(selectedBox.textContent);
                     questionsAnswered++;
@@ -724,10 +730,14 @@
             }
             
             if (targetRange) {
-                targetRange.style.backgroundColor = '#f8f9fa';
+                targetRange.style.backgroundColor = '#e6f7f7';
                 targetRange.style.fontWeight = '600';
-                targetRange.style.border = '2px solid #2c5aa0';
+                targetRange.style.border = '2px solid #007b7b';
             }
+        }
+    </script>
+</body>
+</html>
         }
     </script>
 </body>
